@@ -11,7 +11,7 @@ function formatDateVN(date) {
 }
 
 // Tổng chi phí mỗi SV mỗi tháng (dịch vụ + phòng)
-async function thongTinChiPhiMoiThang(db) {
+async function chiPhiSVTheoThang(db) {
   const raw = await db.collection("SinhVien").aggregate([
     {
       $lookup: {
@@ -80,7 +80,7 @@ async function thongTinChiPhiMoiThang(db) {
   return raw.map((r, i) => ({ stt: i + 1, ...r }));
 }
 
-async function thongKeDichVuTheoThoiGian(db, startDate, endDate) {
+async function thongTinDichVuTheoThoiGian(db, startDate, endDate) {
   const start = new Date(startDate);
   start.setHours(0, 0, 0, 0);
   const end = new Date(endDate);
@@ -138,7 +138,7 @@ async function thongKeDichVuTheoThoiGian(db, startDate, endDate) {
   }));
 }
 
-async function thongKeKhachTrongThang(db, startDate, endDate) {
+async function thongKeKhachTham(db, startDate, endDate) {
   const start = new Date(startDate);
   start.setHours(0, 0, 0, 0);
   const end = new Date(endDate);
@@ -223,8 +223,8 @@ async function doanhThuDichVuTheoThang(db) {
 
 
 module.exports = {
-  thongTinChiPhiMoiThang,
-  thongKeDichVuTheoThoiGian,
-  thongKeKhachTrongThang,
+  chiPhiSVTheoThang,
+  thongTinDichVuTheoThoiGian,
+  thongKeKhachTham,
   doanhThuDichVuTheoThang
 };
