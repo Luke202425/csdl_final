@@ -10,7 +10,7 @@ function formatDateVN(date) {
   return `${day}/${month}/${year}`;
 }
 
-// Tổng chi phí mỗi SV mỗi tháng (dịch vụ + phòng)
+// 1. Tổng chi phí mỗi SV theo tháng (dịch vụ + phòng)
 async function chiPhiSVTheoThang(db) {
   const raw = await db.collection("SinhVien").aggregate([
     {
@@ -80,6 +80,7 @@ async function chiPhiSVTheoThang(db) {
   return raw.map((r, i) => ({ stt: i + 1, ...r }));
 }
 
+// 2. Thống kê dịch vụ đã sử dụng trong khoảng thời gian cụ thể
 async function thongTinDichVuTheoThoiGian(db, startDate, endDate) {
   const start = new Date(startDate);
   start.setHours(0, 0, 0, 0);
@@ -138,6 +139,7 @@ async function thongTinDichVuTheoThoiGian(db, startDate, endDate) {
   }));
 }
 
+// 3. Thống kê khách đến chơi có thời gian cụ thể
 async function thongKeKhachTham(db, startDate, endDate) {
   const start = new Date(startDate);
   start.setHours(0, 0, 0, 0);
@@ -185,6 +187,7 @@ async function thongKeKhachTham(db, startDate, endDate) {
   }));
 }
 
+// 4. Doanh thu dịch vụ theo tháng
 async function doanhThuDichVuTheoThang(db) {
   const raw = await db.collection("DichVuSuDung").aggregate([
     {
